@@ -1,3 +1,4 @@
+import { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import Barry from "./resources/img/otter1.jpg";
@@ -10,29 +11,32 @@ import Header from "./components/Header";
 import SelectedItem from "./components/SelectedItem";
 
 const ottersArray = [
-  {image: Barry, name: 'Barry', id: 1},
-  {image: Robin, name: 'Robin', id: 2},
-  {image: Maurice, name: 'Maurice', id: 3},
-  {image: Lesley, name: 'Lesley', id: 4},
-  {image: Barbara, name: 'Barbara', id: 5},
-]
-
-
+  { image: Barry, name: "Barry", id: 1 },
+  { image: Robin, name: "Robin", id: 2 },
+  { image: Maurice, name: "Maurice", id: 3 },
+  { image: Lesley, name: "Lesley", id: 4 },
+  { image: Barbara, name: "Barbara", id: 5 },
+];
 
 function App() {
+  const [selectedPostName, setSelectedPostName] = useState("Barry");
+  const selectedPost = ottersArray.find(otter => otter.name === selectedPostName);
+  
   return (
     <div>
       <Header />
       <div className="app-content">
         <ul className="post-list">
-         {ottersArray.map((post) => (
-          <Post 
-            key={post.id}
-            image={post.image}
-            name={post.name} />
-         ))}
+          {ottersArray.map((post) => (
+            <Post
+              key={post.id}
+              image={post.image}
+              name={post.name}
+              setSelectedPostName={setSelectedPostName}
+            />
+          ))}
         </ul>
-        <SelectedItem image={ottersArray[0].image} name={ottersArray[0].name} />
+        <SelectedItem image={selectedPost.image} name={selectedPost.name} />
       </div>
     </div>
   );
